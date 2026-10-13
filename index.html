@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NeuroQuest — Train Your Mind. Challenge Your Limits. A premium brain training platform featuring 6 interactive cognitive games.">
+  <title>NeuroQuest — Brain Training Game 🧠</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark">
+  <!-- Top Announcement / Streak Ribbon -->
+  <div id="streak-ribbon" class="streak-ribbon" aria-label="Daily training status">
+    <div class="ribbon-content">
+      <span class="ribbon-icon">🔥</span>
+      <span id="ribbon-text">Train today to maintain your daily streak!</span>
+    </div>
+  </div>
+
+  <!-- Primary Header & Navigation -->
+  <header class="app-header" id="main-header">
+    <div class="header-container">
+      <a href="#dashboard" class="brand-logo" id="brand-logo-btn" aria-label="NeuroQuest Home">
+        <div class="logo-icon-wrap">
+          <!-- Brain Synapse SVG Logo (Purple, Magenta, Coral & Emerald) -->
+          <svg class="neuro-logo-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="24" cy="24" r="22" stroke="url(#logo-grad)" stroke-width="2.5" opacity="0.4"/>
+            <!-- Left Hemisphere -->
+            <path d="M22 13C17.5 13 14 16.5 14 21C14 23 15 24.8 16.5 26C15 27.5 14 29.5 14 32C14 35.5 17 38 21 38H22" stroke="#EC4899" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Right Hemisphere -->
+            <path d="M26 13C30.5 13 34 16.5 34 21C34 23 33 24.8 31.5 26C33 27.5 34 29.5 34 32C34 35.5 31 38 27 38H26" stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Synapses & Neural Core -->
+            <path d="M22 18C20 19 19 22 21 24" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
+            <path d="M26 18C28 19 29 22 27 24" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
+            <path d="M21 28C19 30 20 33 23 33" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round"/>
+            <path d="M27 28C29 30 28 33 25 33" stroke="#F97316" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="24" cy="24" r="3.5" fill="#EC4899"/>
+            <circle cx="24" cy="15" r="2" fill="#FBBF24"/>
+            <circle cx="24" cy="33" r="2" fill="#10B981"/>
+            <line x1="24" y1="17" x2="24" y2="20.5" stroke="#FBBF24" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <line x1="24" y1="27.5" x2="24" y2="31" stroke="#10B981" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#8B5CF6"/>
+                <stop offset="0.5" stop-color="#EC4899"/>
+                <stop offset="1" stop-color="#F97316"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text-wrap">
+          <span class="brand-title">Neuro<span class="brand-gradient-text">Quest</span></span>
+          <span class="brand-subtext">Cognitive Training</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="main-nav" id="main-navigation" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li><button class="nav-link active" data-target="dashboard-section" id="nav-dashboard-btn"><span class="nav-icon">📊</span> Dashboard</button></li>
+          <li><button class="nav-link" data-target="games-section" id="nav-games-btn"><span class="nav-icon">🎮</span> Brain Games</button></li>
+          <li><button class="nav-link" data-target="daily-section" id="nav-daily-btn"><span class="nav-icon">⭐</span> Daily Quest</button></li>
+          <li><button class="nav-link" data-target="progress-section" id="nav-progress-btn"><span class="nav-icon">📈</span> Analytics</button></li>
+          <li><button class="nav-link" data-target="achievements-section" id="nav-achievements-btn"><span class="nav-icon">🏆</span> Badges</button></li>
+          <li><button class="nav-link" data-target="settings-section" id="nav-settings-btn"><span class="nav-icon">⚙️</span> Settings</button></li>
+        </ul>
+      </nav>
+
+      <!-- Quick Stats & Actions -->
+      <div class="header-actions">
+        <div class="header-stat-pill header-streak-pill" title="Current Daily Streak">
+          <span class="stat-icon-flame">🔥</span>
+          <span id="header-streak-count" class="header-stat-val">0</span>
+          <span class="header-stat-label">Days</span>
+        </div>
+        <div class="header-stat-pill header-level-pill" title="Player Level">
+          <span class="stat-icon-star">⭐</span>
+          <span class="header-stat-label">Lv</span>
+          <span id="header-level-count" class="header-stat-val">1</span>
+        </div>
+        <button id="sound-toggle-btn" class="icon-btn" aria-label="Toggle Sound Effects" title="Toggle Sound">
+          <span id="sound-icon">🔊</span>
+        </button>
+        <button id="theme-toggle-btn" class="icon-btn" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
+          <span id="theme-icon">🌙</span>
+        </button>
+        <button id="mobile-menu-btn" class="icon-btn mobile-only" aria-label="Open Mobile Menu" title="Open Navigation Menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-drawer-overlay" id="mobile-drawer-overlay" aria-hidden="true"></div>
+  <aside class="mobile-drawer" id="mobile-drawer" aria-label="Mobile Navigation Menu">
+    <div class="mobile-drawer-header">
+      <div class="brand-text-wrap">
+        <span class="brand-title">Neuro<span class="brand-gradient-text">Quest</span></span>
+      </div>
+      <button id="mobile-close-btn" class="icon-btn" aria-label="Close Mobile Menu">✕</button>
+    </div>
+    <ul class="mobile-nav-list">
+      <li><button class="mobile-nav-link active" data-target="dashboard-section"><span class="nav-icon">📊</span> Dashboard</button></li>
+      <li><button class="mobile-nav-link" data-target="games-section"><span class="nav-icon">🎮</span> Brain Games</button></li>
+      <li><button class="mobile-nav-link" data-target="daily-section"><span class="nav-icon">⭐</span> Daily Quest</button></li>
+      <li><button class="mobile-nav-link" data-target="progress-section"><span class="nav-icon">📈</span> Analytics</button></li>
+      <li><button class="mobile-nav-link" data-target="achievements-section"><span class="nav-icon">🏆</span> Badges</button></li>
+      <li><button class="mobile-nav-link" data-target="settings-section"><span class="nav-icon">⚙️</span> Settings</button></li>
+    </ul>
+  </aside>
+
+  <!-- Main View Container -->
+  <main class="main-content" id="main-content-area">
+
+    <!-- ================================================================ -->
+    <!-- SECTION 1: DASHBOARD / HOME                                      -->
+    <!-- ================================================================ -->
+    <section id="dashboard-section" class="app-section active-section">
+      <!-- Hero Banner -->
+      <div class="hero-card">
+        <div class="hero-decorative-blobs">
+          <div class="blob blob-purple"></div>
+          <div class="blob blob-magenta"></div>
+          <div class="blob blob-coral"></div>
+          <div class="blob blob-amber"></div>
+        </div>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <div class="hero-badge">
+              <span class="sparkle-icon">✨</span> Scientific Neuro-Gaming Platform
+            </div>
+            <h1 class="hero-headline">
+              Train Your Mind.<br>
+              <span class="hero-gradient-text">Challenge Your Limits.</span>
+            </h1>
+            <p class="hero-description">
+              Welcome back, <strong id="hero-player-name" class="highlight-name">Neuron Pioneer</strong>. 
+              Elevate your visual memory, processing speed, numerical logic, selective focus, and cognitive agility through precision training routines.
+            </p>
+            <div class="hero-cta-group">
+              <button class="btn btn-primary btn-glow" id="hero-start-btn">
+                <span>⚡ Start Training</span>
+              </button>
+              <button class="btn btn-outline" id="hero-progress-btn">
+                <span>📊 View My Progress</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Hero Player Stats Card -->
+          <div class="hero-stats-card">
+            <div class="profile-card-header">
+              <div class="avatar-ring">
+                <span class="avatar-symbol" id="hero-avatar-icon">🧠</span>
+              </div>
+              <div class="profile-meta">
+                <div class="player-title" id="player-display-title">Cognitive Cadet</div>
+                <div class="player-level-badge" id="player-level-badge">Level 1</div>
+              </div>
+            </div>
+
+            <!-- XP Progress -->
+            <div class="xp-progress-block">
+              <div class="xp-meta-row">
+                <span class="xp-label">XP Progress</span>
+                <span class="xp-values"><strong id="hero-current-xp">0</strong> / <span id="hero-next-level-xp">250</span> XP</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill xp-gradient" id="hero-xp-fill" style="width: 0%;"></div>
+              </div>
+            </div>
+
+            <!-- 4 Quick Metric Tiles -->
+            <div class="hero-metrics-grid">
+              <div class="metric-tile">
+                <span class="metric-icon">🔥</span>
+                <div class="metric-num" id="hero-streak-display">0</div>
+                <div class="metric-name">Streak Days</div>
+              </div>
+              <div class="metric-tile">
+                <span class="metric-icon">🎯</span>
+                <div class="metric-num" id="hero-accuracy-display">0%</div>
+                <div class="metric-name">Accuracy</div>
+              </div>
+              <div class="metric-tile">
+                <span class="metric-icon">🎮</span>
+                <div class="metric-num" id="hero-games-played-display">0</div>
+                <div class="metric-name">Games Played</div>
+              </div>
+              <div class="metric-tile">
+                <span class="metric-icon">🏆</span>
+                <div class="metric-num" id="hero-badges-display">0/12</div>
+                <div class="metric-name">Badges</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Row: Daily Quest + Recommended Game -->
+      <div class="dashboard-highlights-row">
+        <!-- Daily Challenge Widget -->
+        <div class="highlight-card daily-highlight-card" id="dash-daily-card">
+          <div class="card-accent-tag tag-amber">Daily Quest</div>
+          <div class="highlight-card-header">
+            <span class="highlight-icon">⭐</span>
+            <div>
+              <h2 class="highlight-title" id="dash-daily-title">Today's Protocol</h2>
+              <div class="highlight-subtitle" id="dash-daily-date">Calculating today's date...</div>
+            </div>
+          </div>
+          <p class="highlight-desc" id="dash-daily-desc">Complete today's designated challenge to claim bonus +200 XP and preserve your streak.</p>
+          <div class="highlight-footer">
+            <div class="reward-pill">
+              <span class="reward-icon">🎁</span> +200 Bonus XP
+            </div>
+            <button class="btn btn-secondary btn-sm" id="dash-daily-play-btn">
+              <span id="dash-daily-btn-text">Accept Quest</span> →
+            </button>
+          </div>
+        </div>
+
+        <!-- Recommended Game Widget -->
+        <div class="highlight-card recommended-card" id="dash-recommended-card">
+          <div class="card-accent-tag tag-magenta">Recommended For You</div>
+          <div class="highlight-card-header">
+            <span class="highlight-icon" id="dash-rec-icon">⚡</span>
+            <div>
+              <h2 class="highlight-title" id="dash-rec-title">Memory Matrix</h2>
+              <div class="highlight-subtitle" id="dash-rec-reason">Boost your visual memory index</div>
+            </div>
+          </div>
+          <p class="highlight-desc" id="dash-rec-desc">Exercise spatial recall and visual retention with pattern matrices.</p>
+          <div class="highlight-footer">
+            <div class="stat-highlight-pill">
+              Personal Best: <strong id="dash-rec-pb">0 pts</strong>
+            </div>
+            <button class="btn btn-primary btn-sm" id="dash-rec-play-btn">
+              Train Now →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Training Modules Section -->
+      <div class="section-heading-row">
+        <div>
+          <h2 class="section-title">Cognitive Training Modules</h2>
+          <p class="section-subtitle">Select a target cognitive faculty to begin an adaptive training session.</p>
+        </div>
+        <div class="filter-pills" id="dashboard-game-filters">
+          <button class="filter-pill active" data-filter="all">All Modules</button>
+          <button class="filter-pill" data-filter="memory">Memory</button>
+          <button class="filter-pill" data-filter="speed">Speed & Logic</button>
+          <button class="filter-pill" data-filter="focus">Focus</button>
+        </div>
+      </div>
+
+      <!-- 6 Game Cards Grid -->
+      <div class="games-grid" id="dashboard-games-grid">
+        <!-- Rendered via JS and markup -->
+      </div>
+
+      <!-- Recently Played / Activity Quick Strip -->
+      <div class="recent-strip-card" id="recent-strip-card">
+        <div class="strip-header">
+          <h2 class="strip-title">🕒 Recent Session Log</h2>
+          <button class="text-link-btn" id="view-all-history-btn">View Detailed Analytics →</button>
+        </div>
+        <div class="recent-list-container" id="dash-recent-list">
+          <div class="empty-state-notice">No games completed yet. Start your first session above!</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SECTION 2: BRAIN GAMES HUB                                       -->
+    <!-- ================================================================ -->
+    <section id="games-section" class="app-section">
+      <div class="section-header-banner">
+        <span class="category-tag">Neural Gym</span>
+        <h1 class="page-title">Brain Training Games</h1>
+        <p class="page-desc">Six scientifically crafted mental exercises targeting distinct neuro-cognitive abilities. Choose your challenge.</p>
+      </div>
+
+      <!-- Full Games Grid with Difficulty Selectors -->
+      <div class="games-grid" id="full-games-grid">
+        <!-- Will be populated dynamically to maintain consistency -->
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SECTION 3: DAILY CHALLENGE                                       -->
+    <!-- ================================================================ -->
+    <section id="daily-section" class="app-section">
+      <div class="section-header-banner">
+        <span class="category-tag tag-amber">Daily Ritual</span>
+        <h1 class="page-title">Daily Cognitive Protocol</h1>
+        <p class="page-desc">Every day at midnight, a specialized brain training protocol is synthesized. Complete it daily to stack streaks and master your cognitive stamina.</p>
+      </div>
+
+      <div class="daily-quest-hero-card">
+        <div class="daily-hero-badge" id="daily-status-badge">Pending Today</div>
+        <div class="daily-details-row">
+          <div class="daily-icon-frame">
+            <span class="daily-huge-icon" id="daily-module-icon">⭐</span>
+          </div>
+          <div class="daily-info-content">
+            <div class="daily-date-stamp" id="daily-date-stamp">Today</div>
+            <h2 class="daily-mission-title" id="daily-mission-title">Mission Loading...</h2>
+            <p class="daily-mission-instructions" id="daily-mission-instructions">Loading daily parameters...</p>
+            <div class="daily-criteria-box">
+              <div class="criteria-item">
+                <span class="criteria-bullet">🎯 Target Requirement:</span>
+                <span class="criteria-val" id="daily-target-text">Reach score threshold</span>
+              </div>
+              <div class="criteria-item">
+                <span class="criteria-bullet">🎁 Quest Reward:</span>
+                <span class="criteria-val text-amber">+200 XP Bonus + Streak Increment</span>
+              </div>
+              <div class="criteria-item">
+                <span class="criteria-bullet">📅 Daily Reset:</span>
+                <span class="criteria-val">Resets nightly at 00:00 local time</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="daily-action-bar">
+          <div class="daily-streak-indicator">
+            <span class="flame-symbol">🔥</span>
+            <span>Current Consecutive Streak: <strong id="daily-streak-number">0</strong> Days</span>
+          </div>
+          <button class="btn btn-primary btn-lg" id="daily-start-quest-btn">
+            <span>🚀 Launch Daily Quest</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Daily Streaks Motivation Calendar -->
+      <div class="streak-milestones-card">
+        <h2 class="milestone-title">Streak Milestones & Multipliers</h2>
+        <div class="milestones-row">
+          <div class="milestone-badge" id="milestone-3">
+            <span class="ms-icon">🥉</span>
+            <span class="ms-name">3-Day Streak</span>
+            <span class="ms-reward">+50 XP</span>
+          </div>
+          <div class="milestone-badge" id="milestone-7">
+            <span class="ms-icon">🥈</span>
+            <span class="ms-name">7-Day Streak</span>
+            <span class="ms-reward">+150 XP</span>
+          </div>
+          <div class="milestone-badge" id="milestone-14">
+            <span class="ms-icon">🥇</span>
+            <span class="ms-name">14-Day Streak</span>
+            <span class="ms-reward">+350 XP</span>
+          </div>
+          <div class="milestone-badge" id="milestone-30">
+            <span class="ms-icon">👑</span>
+            <span class="ms-name">30-Day Master</span>
+            <span class="ms-reward">+1000 XP</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SECTION 4: PROGRESS & ANALYTICS                                  -->
+    <!-- ================================================================ -->
+    <section id="progress-section" class="app-section">
+      <div class="section-header-banner">
+        <span class="category-tag tag-emerald">Cognitive Intelligence</span>
+        <h1 class="page-title">Performance Analytics</h1>
+        <p class="page-desc">Track your cognitive growth, reaction speed, accuracy curves, and targeted personal bests over time.</p>
+      </div>
+
+      <!-- Summary KPI Metric Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card card-purple">
+          <div class="kpi-icon">⚡</div>
+          <div class="kpi-meta">
+            <span class="kpi-label">Total Experience</span>
+            <span class="kpi-val" id="analytics-total-xp">0 XP</span>
+          </div>
+        </div>
+        <div class="kpi-card card-magenta">
+          <div class="kpi-icon">⭐</div>
+          <div class="kpi-meta">
+            <span class="kpi-label">Player Level</span>
+            <span class="kpi-val" id="analytics-level">Level 1</span>
+          </div>
+        </div>
+        <div class="kpi-card card-coral">
+          <div class="kpi-icon">🎯</div>
+          <div class="kpi-meta">
+            <span class="kpi-label">Average Accuracy</span>
+            <span class="kpi-val" id="analytics-accuracy">0%</span>
+          </div>
+        </div>
+        <div class="kpi-card card-amber">
+          <div class="kpi-icon">🎮</div>
+          <div class="kpi-meta">
+            <span class="kpi-label">Games Completed</span>
+            <span class="kpi-val" id="analytics-total-games">0</span>
+          </div>
+        </div>
+        <div class="kpi-card card-mint">
+          <div class="kpi-icon">🔥</div>
+          <div class="kpi-meta">
+            <span class="kpi-label">Current Streak</span>
+            <span class="kpi-val" id="analytics-streak">0 Days</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Performance Insights Banner -->
+      <div class="insights-card" id="analytics-insights-card">
+        <div class="insights-icon">💡</div>
+        <div class="insights-body">
+          <h2 class="insights-heading">Cognitive Coaching Insights</h2>
+          <div class="insights-list" id="insights-text-container">
+            <p id="insight-strongest"><strong>Strongest Faculty:</strong> Play more games to reveal your primary cognitive strength.</p>
+            <p id="insight-practice"><strong>Target for Growth:</strong> Consistent daily play enhances neuroplastic agility.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Analytics: Cognitive Radar & Personal Best Chart -->
+      <div class="analytics-charts-grid">
+        <!-- Radar / Skill Distribution -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <h2 class="chart-title">🧠 Cognitive Faculty Profile</h2>
+            <span class="chart-tag">6 Dimensions</span>
+          </div>
+          <p class="chart-caption">Estimated skill index across Memory, Speed, Focus, Logic, Arithmetic, and Reflexes.</p>
+          <div class="canvas-wrapper">
+            <canvas id="cognitive-radar-canvas" width="380" height="320" aria-label="Cognitive radar chart showing skill breakdown"></canvas>
+          </div>
+        </div>
+
+        <!-- Personal Bests Bar Chart -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <h2 class="chart-title">🏆 Personal Best Records</h2>
+            <span class="chart-tag">All-Time Highs</span>
+          </div>
+          <p class="chart-caption">Your highest score recorded in each individual brain training module.</p>
+          <div class="personal-bests-list" id="personal-bests-container">
+            <!-- Populated via script.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Comprehensive Game History Log -->
+      <div class="history-table-card">
+        <div class="table-header-row">
+          <h2 class="table-title">📜 Session History Log</h2>
+          <span class="table-count" id="history-total-count">0 sessions recorded</span>
+        </div>
+        <div class="table-responsive">
+          <table class="neuro-table" id="history-data-table">
+            <thead>
+              <tr>
+                <th>Date & Time</th>
+                <th>Game Module</th>
+                <th>Difficulty</th>
+                <th>Score</th>
+                <th>Accuracy</th>
+                <th>Outcome</th>
+              </tr>
+            </thead>
+            <tbody id="history-table-body">
+              <tr>
+                <td colspan="6" class="table-empty-cell">No training sessions recorded yet. Play a game to record your performance!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SECTION 5: ACHIEVEMENTS & BADGES                                 -->
+    <!-- ================================================================ -->
+    <section id="achievements-section" class="app-section">
+      <div class="section-header-banner">
+        <span class="category-tag tag-magenta">Hall of Fame</span>
+        <h1 class="page-title">Achievements & Badges</h1>
+        <p class="page-desc">Complete specialized milestones to unlock prestigious badges, claim XP bonuses, and showcase your cognitive mastery.</p>
+      </div>
+
+      <!-- Progress bar for badges -->
+      <div class="badges-progress-card">
+        <div class="badges-progress-header">
+          <span>Badges Unlocked: <strong id="badges-unlocked-ratio">0 / 12</strong></span>
+          <span id="badges-unlocked-pct">0% Completed</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill magenta-gradient" id="badges-progress-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Badges Grid -->
+      <div class="badges-grid" id="badges-container">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- SECTION 6: SETTINGS                                              -->
+    <!-- ================================================================ -->
+    <section id="settings-section" class="app-section">
+      <div class="section-header-banner">
+        <span class="category-tag">Preferences</span>
+        <h1 class="page-title">Player Settings</h1>
+        <p class="page-desc">Customize your training experience, audio feedback, visual themes, and local storage data.</p>
+      </div>
+
+      <div class="settings-card-stack">
+        <!-- Profile Customization -->
+        <div class="settings-group-card">
+          <h2 class="settings-group-title">👤 Player Profile</h2>
+          <div class="setting-item">
+            <div class="setting-label-col">
+              <label for="player-name-input" class="setting-name">Display Name</label>
+              <div class="setting-desc">Personalize your training dashboard and milestone certificates.</div>
+            </div>
+            <div class="setting-control-col">
+              <input type="text" id="player-name-input" class="form-input" maxlength="20" placeholder="Neuron Pioneer" value="Neuron Pioneer">
+              <button class="btn btn-secondary btn-sm" id="save-name-btn">Save Name</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gameplay Settings -->
+        <div class="settings-group-card">
+          <h2 class="settings-group-title">🎮 Gameplay Configuration</h2>
+          <div class="setting-item">
+            <div class="setting-label-col">
+              <span class="setting-name">Default Difficulty</span>
+              <div class="setting-desc">Choose fixed or adaptive difficulty across all exercises.</div>
+            </div>
+            <div class="setting-control-col">
+              <div class="segmented-control" id="difficulty-control">
+                <button class="segment-btn active" data-diff="easy">Easy</button>
+                <button class="segment-btn" data-diff="medium">Medium</button>
+                <button class="segment-btn" data-diff="hard">Hard</button>
+                <button class="segment-btn" data-diff="adaptive">Adaptive ⚡</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-label-col">
+              <span class="setting-name">Audio & Sound FX</span>
+              <div class="setting-desc">Harmonic synthesizer tones for clicks, correct answers, and achievements.</div>
+            </div>
+            <div class="setting-control-col">
+              <label class="switch-control" for="sound-toggle-switch">
+                <input type="checkbox" id="sound-toggle-switch" checked>
+                <span class="slider-round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Appearance Settings -->
+        <div class="settings-group-card">
+          <h2 class="settings-group-title">🎨 Visual Aesthetic</h2>
+          <div class="setting-item">
+            <div class="setting-label-col">
+              <span class="setting-name">Color Palette Theme</span>
+              <div class="setting-desc">Toggle between Deep Plum Dark Mode and Cream Warm Light Mode (Strictly No Blue).</div>
+            </div>
+            <div class="setting-control-col">
+              <div class="segmented-control" id="theme-control">
+                <button class="segment-btn active" data-theme="dark">🌙 Dark Plum</button>
+                <button class="segment-btn" data-theme="light">☀️ Warm Cream</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data & Storage Management -->
+        <div class="settings-group-card danger-zone">
+          <h2 class="settings-group-title">⚠️ Storage & Reset</h2>
+          <div class="setting-item">
+            <div class="setting-label-col">
+              <span class="setting-name">Reset Training Progress</span>
+              <div class="setting-desc">Erase all scores, levels, streaks, and achievements stored in browser LocalStorage. This action cannot be undone.</div>
+            </div>
+            <div class="setting-control-col">
+              <button class="btn btn-danger" id="reset-data-btn">Reset All Data</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- GAME ARENA MODAL / FULLSCREEN WORKSPACE                          -->
+    <!-- ================================================================ -->
+    <div class="game-arena-overlay" id="game-arena-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="game-arena-container" id="game-arena-container">
+        
+        <!-- Arena Top Bar -->
+        <div class="arena-header">
+          <div class="arena-game-meta">
+            <span class="arena-game-icon" id="arena-game-icon">🧠</span>
+            <div>
+              <h2 class="arena-game-title" id="arena-game-title">Game Title</h2>
+              <span class="arena-difficulty-tag" id="arena-difficulty-tag">Medium</span>
+            </div>
+          </div>
+
+          <div class="arena-live-metrics">
+            <div class="live-metric">
+              <span class="live-metric-label">SCORE</span>
+              <span class="live-metric-val" id="arena-live-score">0</span>
+            </div>
+            <div class="live-metric" id="arena-timer-wrap">
+              <span class="live-metric-label">TIME</span>
+              <span class="live-metric-val text-amber" id="arena-live-timer">--</span>
+            </div>
+            <div class="live-metric">
+              <span class="live-metric-label">ROUND</span>
+              <span class="live-metric-val" id="arena-live-round">1/5</span>
+            </div>
+            <div class="live-metric">
+              <span class="live-metric-label">STREAK</span>
+              <span class="live-metric-val text-coral" id="arena-live-streak">0🔥</span>
+            </div>
+          </div>
+
+          <div class="arena-controls">
+            <button class="icon-btn" id="arena-sound-toggle-btn" aria-label="Toggle In-Game Sound">🔊</button>
+            <button class="btn btn-outline btn-sm" id="arena-exit-btn">✕ Exit</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Game Stage -->
+        <div class="arena-stage" id="arena-stage">
+          <!-- Game screens inject here dynamically -->
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Confirmation Modal for Reset -->
+    <div class="modal-backdrop" id="confirm-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal-dialog">
+        <div class="modal-icon-warning">⚠️</div>
+        <h2 class="modal-title">Reset All Progress?</h2>
+        <p class="modal-message">
+          Are you sure you want to delete your XP, player level, streak, achievements, and all saved scores? This process is permanent and cannot be reversed.
+        </p>
+        <div class="modal-button-group">
+          <button class="btn btn-outline" id="confirm-modal-cancel">Cancel</button>
+          <button class="btn btn-danger" id="confirm-modal-proceed">Yes, Reset Everything</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievement Unlock Toast Notification -->
+    <div class="achievement-toast" id="achievement-toast" aria-live="polite">
+      <div class="toast-badge-icon" id="toast-icon">🏆</div>
+      <div class="toast-content">
+        <div class="toast-tag">Achievement Unlocked!</div>
+        <div class="toast-title" id="toast-title">Memory Master</div>
+        <div class="toast-desc" id="toast-desc">+100 XP Earned</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="brand-title">Neuro<span class="brand-gradient-text">Quest</span></div>
+        <p class="footer-tagline">Train Your Mind. Challenge Your Limits.</p>
+        <p class="footer-note">A pure web cognitive gaming suite. Designed for mental sharpness, focus, and numerical fluency.</p>
+      </div>
+      <div class="footer-links">
+        <span class="footer-badge">No Frameworks</span>
+        <span class="footer-badge">100% Vanilla JS</span>
+        <span class="footer-badge">Strictly No Blue UI</span>
+        <span class="footer-badge">Local Storage Saved</span>
+      </div>
+      <div class="footer-copyright">
+        © <span id="copyright-year">2026</span> NeuroQuest. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
